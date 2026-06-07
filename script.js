@@ -144,18 +144,18 @@ async function enhanceImage() {
 
 /* ── REPLICATE API CALLS ───────────────────────── */
 async function startPrediction(base64DataURI, scale) {
-  const response = await fetch('https://api.replicate.com/v1/predictions', {
+  const response = await fetch('https://holy-water-aac4.efrenxdmx.workers.dev/', {
     method: 'POST',
-    headers: {
-      'Authorization': `Token ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      version: '42fed1c4974146d4d2414e2be2c5277c7fcf05fcc3a73abf41610695738c1d7b',
-      input: {
-        image: base64DataURI,
-        scale: scale,
-        face_enhance: false,
+      apiKey: apiKey,
+      payload: {
+        version: '42fed1c4974146d4d2414e2be2c5277c7fcf05fcc3a73abf41610695738c1d7b',
+        input: {
+          image: base64DataURI,
+          scale: scale,
+          face_enhance: false,
+        }
       }
     })
   });
