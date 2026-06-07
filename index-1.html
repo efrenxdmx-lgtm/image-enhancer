@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ImageAI — Mejora tus fotos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">IMAGE<span>AI</span></div>
+    <p class="tagline">Resolución · Nitidez · Color</p>
+  </header>
+
+  <!-- API KEY SECTION -->
+  <section class="api-section" id="apiSection">
+    <div class="api-card">
+      <div class="api-icon">🔑</div>
+      <h2>Conecta tu API Key</h2>
+      <p>Ingresa tu clave de <strong>Replicate</strong> para comenzar. Nunca se almacena en ningún servidor.</p>
+      <div class="input-group">
+        <input type="password" id="apiKeyInput" placeholder="r8_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+        <button id="btnConnect" onclick="connectAPI()">Conectar</button>
+      </div>
+      <a class="get-key-link" href="https://replicate.com/account/api-tokens" target="_blank">
+        ¿No tienes una? Obtén tu API Key gratis →
+      </a>
+    </div>
+  </section>
+
+  <!-- MAIN APP (hidden until API connected) -->
+  <main id="mainApp" class="hidden">
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <span class="status-dot"></span>
+      <span id="statusText">API conectada · Listo</span>
+      <button class="btn-disconnect" onclick="disconnect()">Desconectar</button>
+    </div>
+
+    <!-- UPLOAD ZONE -->
+    <section class="upload-section">
+      <div class="upload-zone" id="uploadZone"
+           onclick="document.getElementById('fileInput').click()"
+           ondragover="handleDragOver(event)"
+           ondragleave="handleDragLeave(event)"
+           ondrop="handleDrop(event)">
+        <div class="upload-icon">⬆</div>
+        <p class="upload-title">Arrastra tu imagen aquí</p>
+        <p class="upload-sub">o haz clic para seleccionar · JPG, PNG, WEBP · máx 10MB</p>
+        <input type="file" id="fileInput" accept="image/*" onchange="handleFile(event)" hidden />
+      </div>
+    </section>
+
+    <!-- OPTIONS -->
+    <section class="options-section" id="optionsSection" style="display:none">
+      <h3>Opciones de mejora</h3>
+      <div class="options-grid">
+        <label class="option-card">
+          <input type="radio" name="scale" value="2" checked />
+          <span class="option-label">
+            <strong>2×</strong>
+            <small>Rápido</small>
+          </span>
+        </label>
+        <label class="option-card">
+          <input type="radio" name="scale" value="4" />
+          <span class="option-label">
+            <strong>4×</strong>
+            <small>Recomendado</small>
+          </span>
+        </label>
+        <label class="option-card">
+          <input type="radio" name="scale" value="8" />
+          <span class="option-label">
+            <strong>8×</strong>
+            <small>Máxima calidad</small>
+          </span>
+        </label>
+      </div>
+      <button class="btn-enhance" id="btnEnhance" onclick="enhanceImage()">
+        ✦ Mejorar imagen
+      </button>
+    </section>
+
+    <!-- PREVIEW -->
+    <section class="preview-section" id="previewSection" style="display:none">
+      <div class="preview-grid">
+        <div class="preview-card">
+          <p class="preview-label">ORIGINAL</p>
+          <img id="originalImg" src="" alt="Original" />
+        </div>
+        <div class="preview-card">
+          <p class="preview-label">MEJORADA</p>
+          <div class="result-container" id="resultContainer">
+            <div class="processing-overlay" id="processingOverlay">
+              <div class="spinner"></div>
+              <p id="processingText">Procesando imagen…</p>
+            </div>
+            <img id="enhancedImg" src="" alt="Mejorada" style="display:none" />
+          </div>
+        </div>
+      </div>
+
+      <!-- DOWNLOAD -->
+      <div class="download-area" id="downloadArea" style="display:none">
+        <a id="downloadBtn" class="btn-download" download="imagen-mejorada.png">
+          ↓ Descargar imagen mejorada
+        </a>
+        <button class="btn-new" onclick="resetApp()">+ Nueva imagen</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Potenciado por <a href="https://replicate.com" target="_blank">Replicate</a> · Real-ESRGAN · Hecho con ♥</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
